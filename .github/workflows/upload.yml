@@ -8,6 +8,13 @@ jobs:
     steps:
       - name: リポジトリのチェックアウト
         uses: actions/checkout@v2
+      - name: npmパッケージをキャッシュ
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
       - name: npmインストール
         run: npm ci
       - name: ビルドの実行
