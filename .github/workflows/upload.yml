@@ -1,0 +1,18 @@
+name: ドキュメントの生成とアップロード
+on:
+  push
+jobs:
+  upload:
+    name: ドキュメントの生成とアップロード
+    runs-on: ubuntu-latest
+    steps:
+      - name: リポジトリのチェックアウト
+        uses: actions/checkout@v2
+      - name: npmインストール
+        run: npm ci
+      - name: ビルドの実行
+        run: npm run build
+      - name: 生成されたドキュメントをアップロード
+        uses: actions/upload-artifact@v2
+        with:
+          path: dist
